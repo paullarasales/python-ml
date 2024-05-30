@@ -3,9 +3,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
 from imblearn.over_sampling import RandomOverSampler
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, mean_absolute_error, mean_squared_error, r2_score
 from sklearn.naive_bayes import GaussianNB
 
 student_cols = ["school", "age", "sex", "address", "famsize", "Pstatus", "Medu", "Fedu", "Mjob", "Fjob", "reason", "guardian", "traveltime", "studytime", "failures", "schoolsup", "famsup", "paid", "activities", "nursery", "higher", "internet", "romantic", "famrel", "freetime", "goout", "Dalc", "Walc", "health", "absences", "G1", "G2", "G3"]
@@ -38,9 +39,27 @@ X_test = scaler.transform(X_test)
 knn_model = KNeighborsClassifier(n_neighbors=5)
 knn_model.fit(X_train, y_train)
 
-
 X_first_five = scaler.transform(X.head(5))
 y_pred_first_five_knn = knn_model.predict(X_first_five)
+
+
+linear_model = LinearRegression()
+linear_model.fit(X_train, y_train)
+
+y_pred = linear_model.predict(X_test)
+
+mae = mean_absolute_error(y_test, y_pred)
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_pred, y_test)
+
+print(f"Mean Absolute Error (MAE): {mae}")
+print(f"Mean Squared Error (MSE): {mse}")
+print(f"R-squared (R2): {r2}")
+
+y_pred_first_five = linear_model.predict(X_first_five)
+
+print("Predicted final grade (G3) for the first five records:")
+print(y_pred_first_five)
 
 print("K-Nearest Neighbors predictions for the first five records:")
 print(y_pred_first_five_knn)
