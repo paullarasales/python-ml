@@ -7,3 +7,6 @@ def brute_force_duplicate(array):
 
 array = [1, 2, 43, 44, 2, 1, 5]
 print(brute_force_duplicate(array))
+
+
+
