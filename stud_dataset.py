@@ -89,3 +89,4 @@ y_pred_knn = knn_model.predict(X_test)
 print("K-Nearest Neigbors Classifier:")
 print(classification_report(y_test, y_pred_knn))
 
+
